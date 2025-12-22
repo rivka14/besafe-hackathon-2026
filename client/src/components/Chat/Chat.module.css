@@ -1,0 +1,62 @@
+/* Styles specific to the Chat component (message list, bubbles, input/button) */
+.list {
+  height: 260px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+}
+
+.message {
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.mine {
+  background: #cfe9ff;
+  align-self: flex-end;
+}
+
+.other {
+  background: #efefef;
+  align-self: flex-start;
+}
+
+.user {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.text {
+  word-wrap: break-word;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #2b7cff;
+  color: white;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
