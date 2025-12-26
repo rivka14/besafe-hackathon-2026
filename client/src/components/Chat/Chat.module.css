@@ -60,3 +60,44 @@
   opacity: 0.6;
   cursor: default;
 }
+
+.suggestionBox {
+  border: 1px solid #ffcc00;
+  background: #fff9e6;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.suggestionLabel {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.suggestionText {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.suggestionButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.suggestionBtn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #2b7cff;
+  color: white;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: transparent;
+  cursor: pointer;
+}

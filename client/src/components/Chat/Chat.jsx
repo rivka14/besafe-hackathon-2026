@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../RandomDuck/RandomDuck.module.css';
 import msgStyles from './Chat.module.css';
 import api from '../../services/api';
@@ -6,6 +6,9 @@ import api from '../../services/api';
 const Chat = () => {
   const [text, setText] = useState('');
   const [messages, setMessages] = useState([]);
+  const [suggestion, setSuggestion] = useState('');
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [loadingSend, setLoadingSend] = useState(false);
 
   const fetchMessages = async () => {
     try {
@@ -18,17 +21,38 @@ const Chat = () => {
     }
   };
 
-  const handleSend = async () => {
-    if (!text || !text.trim()) return;
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const handleSend = async (overrideText) => {
+    const bodyText = (overrideText ?? text)?.trim();
+    if (!bodyText) return;
+    setLoadingSend(true);
     try {
-      const payload = { user: 'You', text: text.trim() };
+      const payload = { user: 'You', text: bodyText };
       await api.post('/messages', payload);
       setText('');
+      setShowSuggestion(false);
+      setSuggestion('');
       fetchMessages();
     } catch (err) {
-      console.error('Failed to send message', err);
-      alert('Could not send message');
+      const resp = err?.response?.data;
+      if (resp && resp.suggestion) {
+        setSuggestion(resp.suggestion);
+        setShowSuggestion(true);
+      } else {
+        console.error('Failed to send message', err);
+        alert(resp?.error || 'Could not send message');
+      }
+    } finally {
+      setLoadingSend(false);
     }
+  };
+
+  const sendSuggestionAndClear = async () => {
+    if (!suggestion) return;
+    await handleSend(suggestion);
   };
 
 
@@ -48,6 +72,18 @@ const Chat = () => {
           ))}
         </div>
 
+        {showSuggestion && (
+          <div className={msgStyles.suggestionBox}>
+            <div className={msgStyles.suggestionLabel}>Message flagged — suggested alternative:</div>
+            <div className={msgStyles.suggestionText}>{suggestion}</div>
+            <div className={msgStyles.suggestionButtons}>
+              <button className={msgStyles.suggestionBtn} onClick={() => { setText(suggestion); setShowSuggestion(false); }}>Edit</button>
+              <button className={msgStyles.suggestionBtn} onClick={sendSuggestionAndClear} disabled={loadingSend}>Use &amp; send</button>
+              <button className={msgStyles.cancelBtn} onClick={() => { setShowSuggestion(false); setSuggestion(''); }}>Cancel</button>
+            </div>
+          </div>
+        )}
+
         <div className={msgStyles.inputRow}>
           <input
             className={msgStyles.input}
@@ -56,7 +92,7 @@ const Chat = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <button className={msgStyles.button} onClick={handleSend}>send</button>
+          <button className={msgStyles.button} onClick={() => handleSend()} disabled={loadingSend}>send</button>
         </div>
       </div>
     </div>
