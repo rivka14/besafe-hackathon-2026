@@ -1,12 +1,13 @@
 import styles from './Home.module.css';
-import RandomDuck from '../../components/RandomDuck/RandomDuck.jsx';
+import RandomMessage from '../../components/RandomMessage/RandomMessage.jsx';
 
 
 const Home = () => {
   return (
     <div className={styles.home}>
-      <h1 className={styles.headline}>Duck It</h1>
-      <RandomDuck />
+      <h1 className={styles.headline}>PhishSmart</h1>
+      <p>Learn to spot phishing — try creating a fake message and see who falls for it.</p>
+      <RandomMessage />
     </div>
   );
 };

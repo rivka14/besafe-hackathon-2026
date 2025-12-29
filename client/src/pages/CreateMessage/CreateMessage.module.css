@@ -1,0 +1,8 @@
+.container {
+  max-width: 680px;
+  margin: 16px auto;
+  padding: 12px;
+}
+.actions { display:flex; gap:8px; margin-top:8px }
+.share { margin-top:12px }
+.share input { width:100%; }

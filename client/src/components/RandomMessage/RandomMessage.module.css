@@ -13,7 +13,7 @@
   font-size: 16px;
 }
 
-.duck {
+.message {
   margin-top: 20px;
   border: 1px solid #ccc;
   padding: 20px;
@@ -28,8 +28,10 @@
     margin-top: 10px;
 }
 
-.duckName {
+.messageName {
   font-size: 24px;
   font-weight: bold;
   color: #333;
 }
+
+.fall { color: #aa0000; margin-top:8px }

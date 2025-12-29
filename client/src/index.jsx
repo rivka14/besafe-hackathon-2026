@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/global.css'; 
 import App from './App.jsx';
-import { DuckProvider } from './context/DuckContext';
+import { MessageProvider } from './context/MessageContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DuckProvider>
-      <App /> 
-    </DuckProvider>
+    <MessageProvider>
+      <App />
+    </MessageProvider>
   </React.StrictMode>
 );
